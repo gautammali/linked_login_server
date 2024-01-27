@@ -4,10 +4,10 @@ const request = require('superagent');
 require('dotenv').config()
 
 function setUrl(data){
-    if(data.redirectUrl && data.systemString && data.sampleCode){
+    if(data.redirectUrl && data.systemString && data.authSampleCode){
         process.env.EXPRESS_APP_REDIRECT_URI = data.redirectUrl
         process.env.EXPRESS_APP_CLIENT_ID = data.systemString
-        process.env.EXPRESS_APP_CLIENT_SECRET = data.sampleCode
+        process.env.EXPRESS_APP_CLIENT_SECRET = data.authSampleCode
     }
 }
 
