@@ -4,6 +4,7 @@ const request = require('superagent');
 require('dotenv').config()
 
 function setUrl(data){
+    console.log('setting url',data);
     if(data.redirectUrl && data.systemString && data.authSampleCode){
         process.env.EXPRESS_APP_REDIRECT_URI = data.redirectUrl
         process.env.EXPRESS_APP_CLIENT_ID = data.systemString
@@ -13,6 +14,7 @@ function setUrl(data){
 
 router.post('/', function (req, res, next) {
     try {
+        console.log('setting url',data.body);
         setUrl(req.body || req.query)
         requestAccessToken(req.body.code || req.query.code, req.body.state || req.query.state)
             .then((response) => {
@@ -32,6 +34,7 @@ router.post('/', function (req, res, next) {
 });
 
 function requestAccessToken(code, state) {
+    console.log(process.env)
     return request.post(process.env.LINKEDLN_ACCESS_URL)
         .send('grant_type=authorization_code')
         .send(`redirect_uri=${process.env.EXPRESS_APP_REDIRECT_URI}`)
