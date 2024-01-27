@@ -14,7 +14,7 @@ function setUrl(data){
 
 router.post('/', function (req, res, next) {
     try {
-        console.log('setting url',data.body);
+        console.log('setting url',req.body);
         setUrl(req.body || req.query)
         requestAccessToken(req.body.code || req.query.code, req.body.state || req.query.state)
             .then((response) => {
