@@ -3,8 +3,17 @@ var router = express.Router();
 const request = require('superagent');
 require('dotenv').config()
 
+function setUrl(data){
+    if(data.redirectUrl && data.systemString && data.sampleCode){
+        process.env.EXPRESS_APP_REDIRECT_URI = data.redirectUrl
+        process.env.EXPRESS_APP_CLIENT_ID = data.systemString
+        process.env.EXPRESS_APP_CLIENT_SECRET = data.sampleCode
+    }
+}
+
 router.post('/', function (req, res, next) {
     try {
+        setUrl(req.body || req.query)
         requestAccessToken(req.body.code || req.query.code, req.body.state || req.query.state)
             .then((response) => {
                 requestProfile(response.body.access_token)
