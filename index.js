@@ -16,6 +16,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 
+app.use('/health',(req,res,next) => {
+    res.status(200).send('ok');
+})
+
 app.use('/verify',(req,res,next) => {
     res.status(200).json({applicationHealth : '100',message : 'verified' })
 })
